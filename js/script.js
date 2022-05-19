@@ -1,5 +1,4 @@
 /* Random select Rock, Paper or scissors */
-
 function computerPlay() {
   /* create array with options rock, paper, scissors */
   let optionsRPS = ["rock","paper", "scissors"];
