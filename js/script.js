@@ -2,12 +2,14 @@
 const playerClicks = document.querySelectorAll('button'); //button event listeners
 playerClicks.forEach(click => {click.addEventListener('click', playerClick)});
 
+//game(); //play a game
+
 // capture player selection value
 function playerClick(e) {
     e.target.innerText; //playerslection valuerock, paper or scissors
     playerSelection = e.target.innerText;
     computerPlay(); //call function to capture computer selection 
-    playRound();  //play a round of rock, paper, scissors
+    game();  //play a round of rock, paper, scissors
 }   
 
 function computerPlay() {
@@ -39,7 +41,7 @@ function playRound(playerClick, computerPlay) { //play round Rock, paper, scisso
         console.log(playerSelection);
         console.log(computerSelection);
     /* compare user vs. computer selection and determine winner */
-    let result = 0;
+    
     if (playerSelection === computerSelection){
         alert("It is a draw"); // player and computer selection match; display draw
         result = 2;  
@@ -80,24 +82,14 @@ function playRound(playerClick, computerPlay) { //play round Rock, paper, scisso
         return result;
 }
 
-/* Function to play a game 
+/* Function to play a game */
 function game(){
     playerScore = parseInt(0);  // set player score to zero 
     computerScore =parseInt(0); // set computer score to zero
- 
-    playRound(playerClick(),computerPlay());
-    if (result === 1) {     // Check the result of the round; calc the score
-        playerScore += 1;
-    }else if (result === 0){
-        computerScore += 1;
-    }else if (result === 2){
-        playerScore +=0;
-        computerScore += 0;
-    }
-
-    /*
-    for (let i = 0; i <5; i++){ // play 5 rounds
-        playRound(playerClick(),computerPlay()); // call playRound function   
+    let result = 0;
+   
+    for (let i = 0; i <5; i++){ // play 5 rounds 
+        playRound(); // call playRound function   
         if (result === 1) {     // Check the result of the round; calc the score
             playerScore += 1;
         }else if (result === 0){
@@ -106,10 +98,20 @@ function game(){
             playerScore +=0;
             computerScore += 0;
         }  
-    };*/
+    };
+
+    playRound();
+    if (result === 1) {     // Check the result of the round; calc the score
+        playerScore += 1;
+    }else if (result === 0){
+        computerScore += 1;
+    }else if (result === 2){
+        playerScore +=0;
+        computerScore += 0;
+    }
     
 
-    /* after 5 rounds determine the winner 
+    /* after 5 rounds determine the winner */ 
     if (playerScore > computerScore ){
         alert(`Player wins. Player score: ${playerScore} Computer score: ${computerScore}`);
     } else if (computerScore > playerScore){
@@ -118,4 +120,4 @@ function game(){
         alert(`It is a draw. Player score: ${playerScore} Computer score: ${computerScore}`);
     }       
 }
-    */
+    
