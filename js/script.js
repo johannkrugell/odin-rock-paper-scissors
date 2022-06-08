@@ -1,21 +1,29 @@
-/* Random select Rock, Paper or scissors */
-function computerPlay() {
-    /* create array with options rock, paper, scissors */
-    let optionsRPS = ["rock","paper", "scissors"];
+// event listeners
+const playerClicks = document.querySelectorAll('button'); //button event listeners
+playerClicks.forEach(click => {click.addEventListener('click', playerClick)});
 
-    /* randomly generate a number between 0 and 2 */
-    let arrayIndexNumber = Math.floor(Math.random() * 3);
-  
-    /* select the element in the array where the array index number matches the 
-    random number */
-    console.log(optionsRPS[arrayIndexNumber].toString());
-    return optionsRPS[arrayIndexNumber].toString();
+// capture player selection value
+function playerClick(e) {
+    e.target.innerText; //playerslection valuerock, paper or scissors
+    playerSelection = e.target.innerText;
+    computerPlay(); //call function to capture computer selection 
+    playRound();  //play a round of rock, paper, scissors
+}   
+
+function computerPlay() {
+    let optionsRPS = ["rock","paper", "scissors"]; //rock,paper,scissors array
+    let arrayIndexNumber = Math.floor(Math.random() * 3); //random number == array index 
+    computerSelection = optionsRPS[arrayIndexNumber].toString(); 
 }
 
-/* Function to play a round of rock, paper, scissors */
-function playRound(playerSelection, computerSelection) {
-    /* downcase the players selection */
-    playerSelection = playerSelection.toString().toLowerCase();
+function playRound(playerClick, computerPlay) { //play round Rock, paper, scissors
+      
+    const outputPlayerSelection = document.createElement("p");
+    outputPlayerSelection.innerText = `You have selected ${playerSelection}`;
+    document.body.appendChild(outputPlayerSelection);
+
+    
+    playerSelection = playerSelection.toString().toLowerCase(); // downcase the players selection
    
     /* create correct case for player and computer selection to return on winning
        or losing message */
@@ -24,31 +32,37 @@ function playRound(playerSelection, computerSelection) {
     
     let computerSelectionRightCase = 
         computerSelection.charAt(0).toUpperCase().concat(computerSelection.slice(1));
+        
+    const outputComputerSelection = document.createElement("p");
+        outputComputerSelection.innerText = `I have selected ${computerSelectionRightCase}`;
+        document.body.appendChild(outputComputerSelection);    
         console.log(playerSelection);
-        console.log(computerSelection)
-
+        console.log(computerSelection);
     /* compare user vs. computer selection and determine winner */
+    let result = 0;
     if (playerSelection === computerSelection){
-    /* if the player and computer have selected the same item display draw */
-        alert("It is a draw");
+        alert("It is a draw"); // player and computer selection match; display draw
         result = 2;  
         return result;
 
-    /* Player wins */  
-        } else if (playerSelection === "rock" && computerSelection === "scissors"){
+    /* Player wins */
+        } else if (playerSelectionRightCase === "rock" && computerSelection === "scissors"){
             alert(`You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`);
             result = 1; 
+            
             return result;
         } else if (playerSelection === "paper" && computerSelection === "rock"){
             alert(`You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`);
             result = 1; 
+            
             return result;
         } else if (playerSelection === "scissors" && computerSelection === "paper"){
             alert(`You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`);
             result = 1; 
+            
             return result;
         
-        /* Computer wins */  
+        /* Computer wins */
         } else if (computerSelection === "rock" && playerSelection === "scissors"){
             alert(`You lose! ${computerSelectionRightCase} beats ${playerSelectionRightCase}`);
             result = 0; 
@@ -62,20 +76,29 @@ function playRound(playerSelection, computerSelection) {
             result = parseInt(0); 
             return result; 
         } 
+        console.log(result);
+        return result;
 }
 
-/* Function to play a game */
+/* Function to play a game 
 function game(){
-    /* set the score variable to zero */
-    playerScore = parseInt(0);
-    computerScore =parseInt(0);
+    playerScore = parseInt(0);  // set player score to zero 
+    computerScore =parseInt(0); // set computer score to zero
+ 
+    playRound(playerClick(),computerPlay());
+    if (result === 1) {     // Check the result of the round; calc the score
+        playerScore += 1;
+    }else if (result === 0){
+        computerScore += 1;
+    }else if (result === 2){
+        playerScore +=0;
+        computerScore += 0;
+    }
 
-    /* play 5 rounds of the game Rock, Paper Scissors */
-    for (let i = 0; i <5; i++){ 
-        /* call playRound function */
-        playRound(prompt("Please enter selection"),computerPlay());
-        /* Check the result of the round and adjust the score */
-        if (result === 1) {
+    /*
+    for (let i = 0; i <5; i++){ // play 5 rounds
+        playRound(playerClick(),computerPlay()); // call playRound function   
+        if (result === 1) {     // Check the result of the round; calc the score
             playerScore += 1;
         }else if (result === 0){
             computerScore += 1;
@@ -83,9 +106,10 @@ function game(){
             playerScore +=0;
             computerScore += 0;
         }  
-    }  
+    };*/
     
-    /* after 5 rounds determine the winner */
+
+    /* after 5 rounds determine the winner 
     if (playerScore > computerScore ){
         alert(`Player wins. Player score: ${playerScore} Computer score: ${computerScore}`);
     } else if (computerScore > playerScore){
@@ -94,6 +118,4 @@ function game(){
         alert(`It is a draw. Player score: ${playerScore} Computer score: ${computerScore}`);
     }       
 }
-    
-/* call the game function to play a game of Rock Paper Scissors */
-game();
+    */
