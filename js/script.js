@@ -3,48 +3,49 @@ const playerClicks = document.querySelectorAll('button'); //button event listene
 playerClicks.forEach(click => {click.addEventListener('click', playerClick, true)});
 
 // variables update case
-let computerSelectionRightCaseOutput;
+
 
 // capture player selection value
 function playerClick(e) {
-    e.target.innerText; //playerslection valuerock, paper or scissors
-    playerSelection = e.target.innerText;
-    computerPlay(); //call function to capture computer selection  
-    playRound();
-    return playerSelection
+  e.target.innerText; //playerslection valuerock, paper or scissors
+  playerSelection = e.target.innerText;
+  computerPlay(); //call function to capture computer selection  
+  playRound();
+  return playerSelection
 }   
 
 function computerPlay() {
-    let optionsRPS = ["rock","paper", "scissors"]; //rock,paper,scissors array
-    let arrayIndexNumber = Math.floor(Math.random() * 3); //random number == array index 
-    computerSelection = optionsRPS[arrayIndexNumber].toString(); 
-    return computerSelection;
+  let optionsRPS = ["rock","paper", "scissors"]; //rock,paper,scissors array
+  let arrayIndexNumber = Math.floor(Math.random() * 3); //random number == array index 
+  computerSelection = optionsRPS[arrayIndexNumber].toString(); 
+  return computerSelection;
 }
 
-function RightCase(selection){
-  selection = selection.charAt(0).toUpperCase().concat(computerSelection.slice(1));
+function rightCase(selection) {
+  selection = selection.charAt(0).toUpperCase().concat(selection.slice(1));
   return selection;
 }
 
+function lowerCase(selection) {
+  selection = selection.toString().toLowerCase();
+  return selection;
+}
+
+function createElement(selection){
+  let outputSelection = document.createElement("p");
+  outputSelection.innerText = `You have selected ${selection}`;
+  document.body.appendChild(outputSelection);
+}
+
 function playRound() { //play round Rock, paper, scissors
-   
+  
+  playerSelection = lowerCase(playerSelection) //downcase the players selection
+  let playerSelectionRightCase = rightCase(playerSelection); //correct case
+  let computerSelectionRightCase = rightCase(computerSelection); //correct case 
 
-    const outputPlayerSelection = document.createElement("p");
-    outputPlayerSelection.innerText = `You have selected ${playerSelection}`;
-    document.body.appendChild(outputPlayerSelection);
+  createElement(playerSelectionRightCase);
+  createElement(computerSelectionRightCase);
 
-    
-    playerSelection = playerSelection.toString().toLowerCase(); // downcase the players selection
-   
-    /* create correct case for player and computer selection to return on winning
-       or losing message */
-    let playerSelectionRightCase = RightCase(playerSelection);
-        
-    let computerSelectionRightCase = RightCase(computerSelection);
-        
-    const outputComputerSelection = document.createElement("p");
-        outputComputerSelection.innerText = `I have selected ${computerSelectionRightCase}`;
-        document.body.appendChild(outputComputerSelection);    
         console.log(playerSelection);
         console.log(computerSelection);
         
