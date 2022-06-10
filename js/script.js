@@ -3,15 +3,24 @@ const playerClicks = document.querySelectorAll('button'); //button event listene
 playerClicks.forEach(click => {click.addEventListener('click', playerClick, true)});
 
 // variables update case
-
+let countRounds = 0; 
+let playerScore = 0;  // set player score to zero 
+let computerScore = 0;
 
 // capture player selection value
 function playerClick(e) {
-  e.target.innerText; //playerslection valuerock, paper or scissors
-  playerSelection = e.target.innerText;
-  computerPlay(); //call function to capture computer selection  
-  playRound();
-  return playerSelection
+  if (countRounds < 5){
+      countRounds += 1;
+      e.target.innerText; //playerslection valuerock, paper or scissors
+      playerSelection = e.target.innerText;
+      computerPlay(); //call function to capture computer selection  
+      playRound();
+      return playerSelection
+    }
+  calcWinner(); 
+  playerScore = 0;
+  computerScore = 0;
+  countRounds = 0;  
 }   
 
 function computerPlay() {
@@ -38,6 +47,7 @@ function createElement(selection){
 }
 
 function playRound() { //play round Rock, paper, scissors
+  console.log(`Rounds:${countRounds}`);
   
   playerSelection = lowerCase(playerSelection) //downcase the players selection
   let playerSelectionRightCase = rightCase(playerSelection); //correct case
@@ -53,7 +63,9 @@ function playRound() { //play round Rock, paper, scissors
     
     if (playerSelection === computerSelection){
         alert("It is a draw"); // player and computer selection match; display draw
-        result = 2;  
+        result = 2; 
+        playerScore +=0;
+        computerScore += 0; 
         return result;
     }
     /* Player wins */
@@ -61,20 +73,23 @@ function playRound() { //play round Rock, paper, scissors
              playerSelection === "paper" && computerSelection === "rock" || 
              playerSelection === "scissors" && computerSelection === "paper"){
             alert(`You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`);
-            result = 1; 
-            return result;
+            playerScore += 1; 
+            console.log(`Player Score update: ${playerScore}`);
+            return playerScore;
         }     
     /* Computer wins */
     else if (computerSelection === "rock" && playerSelection === "scissors" || 
              computerSelection === "paper" && playerSelection === "rock" || 
              computerSelection === "scissors" && playerSelection === "paper"){
             alert(`You lose! ${computerSelectionRightCase} beats ${playerSelectionRightCase}`);
-            result = 0; 
-            return result;
+            computerScore += 1; 
+            console.log(`Computer Score update: ${computerScore}`);
+            return computerScore;
         } 
+        
 }
 
-/* Function to play a game */
+/* Function to play a game 
 function game(){
     console.log("call game function")
     playerScore = parseInt(0);  // set player score to zero 
@@ -98,15 +113,16 @@ function game(){
         }  
     console.log(playerScore);
 
-    };
+    };*/
 
     /* after 5 rounds determine the winner */ 
-    if (playerScore > computerScore ){
-        alert(`Player wins. Player score: ${playerScore} Computer score: ${computerScore}`);
-    } else if (computerScore > playerScore){
-        alert(`Computer wins. Player score: ${playerScore} Computer score: ${computerScore}`);
-    } else if (playerScore === computerScore){
-        alert(`It is a draw. Player score: ${playerScore} Computer score: ${computerScore}`);
+function calcWinner() {
+  if (playerScore > computerScore ){
+    alert(`Player wins. Player score: ${playerScore} Computer score: ${computerScore}`);
+  } else if (computerScore > playerScore){
+    alert(`Computer wins. Player score: ${playerScore} Computer score: ${computerScore}`);
+  } else if (playerScore === computerScore){
+    alert(`It is a draw. Player score: ${playerScore} Computer score: ${computerScore}`);
     }       
-}
+} 
     
