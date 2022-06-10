@@ -7,16 +7,20 @@ let countRounds = 0;
 let playerScore = 0;  // set player score to zero 
 let computerScore = 0;
 
+
 // capture player selection value
 function playerClick(e) {
-  if (countRounds < 5){
+  if (countRounds < 4){
       countRounds += 1;
       e.target.innerText; //playerslection valuerock, paper or scissors
       playerSelection = e.target.innerText;
       computerPlay(); //call function to capture computer selection  
       playRound();
+      
       return playerSelection
     }
+  playRound();  
+  countRounds += 1;
   calcWinner(); 
   playerScore = 0;
   computerScore = 0;
@@ -42,11 +46,20 @@ function lowerCase(selection) {
 
 function createElement(selection){
   let outputSelection = document.createElement("p");
+  outputSelection.setAttribute("id","roundSelection");
   outputSelection.innerText = `You have selected ${selection}`;
   document.body.appendChild(outputSelection);
 }
 
+function removeElement(){
+  const element = document.querySelectorAll("#roundSelection");
+  for (i=0; i <element.length; i++) {
+    element[i].remove();  
+  }
+}
+
 function playRound() { //play round Rock, paper, scissors
+  
   console.log(`Rounds:${countRounds}`);
   
   playerSelection = lowerCase(playerSelection) //downcase the players selection
@@ -65,7 +78,8 @@ function playRound() { //play round Rock, paper, scissors
         alert("It is a draw"); // player and computer selection match; display draw
         result = 2; 
         playerScore +=0;
-        computerScore += 0; 
+        computerScore += 0;
+        removeElement(); 
         return result;
     }
     /* Player wins */
@@ -74,6 +88,7 @@ function playRound() { //play round Rock, paper, scissors
              playerSelection === "scissors" && computerSelection === "paper"){
             alert(`You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`);
             playerScore += 1; 
+            removeElement();
             console.log(`Player Score update: ${playerScore}`);
             return playerScore;
         }     
@@ -83,6 +98,7 @@ function playRound() { //play round Rock, paper, scissors
              computerSelection === "scissors" && playerSelection === "paper"){
             alert(`You lose! ${computerSelectionRightCase} beats ${playerSelectionRightCase}`);
             computerScore += 1; 
+            removeElement();
             console.log(`Computer Score update: ${computerScore}`);
             return computerScore;
         } 
