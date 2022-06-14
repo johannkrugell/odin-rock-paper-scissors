@@ -1,0 +1,16 @@
+/* header */
+
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  color: white;
+}
+
+.hal-image {
+  width: auto;
+  height: 250px;
+}
