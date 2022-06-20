@@ -5,19 +5,88 @@
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/script.js" defer></script>
+    <!-- Font Awesome kit-->
+    <script src="https://kit.fontawesome.com/95dcdb5b53.js" 
+            crossorigin="anonymous">
+    </script>
+    <!-- Google Fonts link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap" rel="stylesheet"> 
+    
   </head>
   <body>
-    <h1 class = "heading">HAL 9000 Rock, Paper and Scissors</h1>
-    <h2 class= "heading"><a href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)"></a>Heuristically programmed ALgorithmic computer </h2>
-    <div >
-      <img src="./img/artificial-intelligence-gdbe861b7a_640.png" alt="" class="hal-image">
+    <div id="heading" class="heading">
+      <h1>Rock-Paper-Scissors</h1>
+      <p class="backgroundImage"></p>
     </div>
-    <button id="playerSelect">Rock</button>
-    <button id="playerSelect">Paper</button>
-    <button id="playerSelect">Scissors</button>
-    <div id= "selection"></div>   
-    <div id = "roundResult"></div>
-    <div id = "scores"></div>
-    <div id="winner"></div>
+    <!-- The round counter updates each time a round is played -->
+    <div id="roundCounter" class="roundCounter"></div>
+    
+    <!-- the section contains the HAL image and the scores updates 
+    each round played the score should update and an audio clip played-->
+    <div id="image">
+      <!-- player score and selections-->
+      <div class="playerScoreResult">
+        <div id="playerScores" class="playerScore">Your Score:</div>
+        <div id="playerSelection"></div> 
+        <audio id="audioPlayerScissors">
+          <source src="./audio/playerSelectedScissors.wav" type="audio/wav">
+        </audio> 
+        <audio id="audioPlayerRock">
+          <source src="./audio/playerSelectedRock.wav" type="audio/wav">
+        </audio>   
+        <audio id="audioPlayerPaper">
+          <source src="./audio/playerSelectedPaper.wav" type="audio/wav">
+        </audio>  
+      </div>
+      
+      <img src="./img/Hal_9000_Panel.svg.png" alt="image of HAL9000" 
+           class="hal-image" width="350">
+      
+      <!-- computer score and selections-->
+      <div class="computerScoreResult">
+        <div id="computerScores" class="computerScore">My Score:</div>
+        <div id="computerSelection"></div> 
+        <audio id="audioSelectionBuildUp">
+          <source src="./audio/audioComputerSelect.wav" type="audio/wav">
+        </audio>
+        <audio id="audioComputerScissors">
+          <source src="./audio/computerSelectedScissors.wav" type="audio/wav">
+        </audio> 
+        <audio id="audioComputerRock">
+          <source src="./audio/computerSelectedRock.wav" type="audio/wav">
+        </audio>   
+        <audio id="audioComputerPaper">
+          <source src="./audio/computerSelectedPaper.wav" type="audio/wav">
+        </audio>  
+      </div> 
+    </div>      
+  </div>
+   <!-- Selection button for the Player to use and the audio and rendering 
+  of the round results and the game results--> 
+    <div id="winner" class="winner"></div>
+    <div id="selection_options">
+      <button id="playerSelect" class="rock">
+        <i class="fa-regular fa-hand-back-fist fa-5x"></i>
+      </button>
+      <button id="playerSelect" class="paper">
+        <i class="fa-regular fa-hand fa-5x"></i>
+      </button>
+      <button id="playerSelect" class="scissors">
+        <i class="fa-regular fa-hand-scissors fa-5x"></i>
+      </button>
+    </div>
+    <div id="roundResult" class="roundResults">
+      <audio id="audioRoundResultdraw">
+        <source src="./audio/draw.wav" type="audio/wav">
+      </audio> 
+      <audio id="audioRoundResultplayerWins">
+        <source src="./audio/playerWins.wav" type="audio/wav">
+      </audio>
+      <audio id="audioRoundResultcomputerWins">
+        <source src="./audio/computerWins.wav" type="audio/wav">
+      </audio>  
+    </div>
   </body>
 </html>

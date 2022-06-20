@@ -12,21 +12,24 @@ let computerScore = 0;
    updateScoreElement()
 */
 const playerScoreElement = document.createElement("p");
-playerScoreElement.setAttribute("id","playerScore");
+playerScoreElement.setAttribute("id","playerScoreNumber");
 const computerScoreElement = document.createElement("p");
-computerScoreElement.setAttribute("id","computerScore");
+computerScoreElement.setAttribute("id","computerScoreNumber");
 
 const calcWinner = document.createElement("p");
 calcWinner.setAttribute("id", "calcWinner");
+
+const roundNumber = document.createElement("p");
+roundNumber.setAttribute("id","roundNumber");
 
 /* Set the number of seconds before the selection, round results or game results
    are displayed
 */
 const outputTimeWinner = 5000;
-const outputPlayerSelectionTime = 3000;
-const outputComputerSelectionTime = 5000;
-const outputRoundResultTime = 7000;
-const outputScoreTime = 9000;
+const outputPlayerSelectionTime = 1000;
+const outputComputerSelectionTime = 4000;
+const outputRoundResultTime = 12000;
+const outputScoreTime = 14000;
 
 
 /* When a player selects an options
@@ -37,12 +40,15 @@ const outputScoreTime = 9000;
    both computerSelection and playerSelection values are passed to playRound
 */
 function playerClick(e) {
+  
   countRounds += 1; 
   if (countRounds <= 5) {  
     removeElement(); 
     removeRoundResult(); 
-    e.target.innerText;  
-    playerSelection = e.target.innerText; 
+    console.log(e);
+    e.currentTarget.className;  
+    playerSelection = e.currentTarget.className; 
+   
     computerPlay(); 
     playRound(); 
     return playerSelection
@@ -79,16 +85,29 @@ function lowerCase(selection) {
    div is found and updated with the player/computers selection   
 */
 function createElement(selection, selectionType) {
-  const outputSelection = document.getElementById("selection"); 
+  const outputPlayerSelection = document.getElementById("playerSelection"); 
+  const outputComputerSelection = document.getElementById("computerSelection");
+  const audioPlayerSelection = document.getElementById(`audioPlayer${selection}`) 
+  const audioComputerSelection = document.getElementById(`audioComputer${selection}`) 
+  const audioComputerBuildUp = document.getElementById("audioSelectionBuildUp") 
   const updateSelection = document.createElement("p");
   updateSelection.setAttribute("id","roundSelection");
   if (selectionType == "player") {
-    updateSelection.innerText = `You have selected ${selection}`;
+    updateSelection.innerText = `${selection}`;
+    audioPlayerSelection.play();
+    setTimeout(() => {outputPlayerSelection.appendChild(updateSelection)},
+                      outputPlayerSelectionTime);
+    
   }
   else {
-    updateSelection.innerText = `I have selected ${selection}`;
+    updateSelection.innerText = `${selection}`;
+    audioComputerBuildUp.play();
+        
+    setTimeout(()=> {audioComputerSelection.play()  }, outputComputerSelectionTime);
+   
+    setTimeout(() => {outputComputerSelection.appendChild(updateSelection)},
+                      outputComputerSelectionTime);
   }
-    outputSelection.appendChild(updateSelection);
 }
 
 /* Removes the elements create in prior rounds that displayed 
@@ -107,8 +126,8 @@ function removeElement() {
 */
 function updateScoreElement() {
   if (countRounds == 1){
-    document.getElementById("scores").appendChild(playerScoreElement);
-    document.getElementById("scores").appendChild(computerScoreElement);
+    document.getElementById("playerScores").appendChild(playerScoreElement);
+    document.getElementById("computerScores").appendChild(computerScoreElement);
     updateScoreElementValue();
   } 
   else if (countRounds < 5 ) {
@@ -116,13 +135,20 @@ function updateScoreElement() {
   } 
   else if (countRounds === 5) {
     updateScoreElementValue();
-    setTimeout(function() { createElementWinner() }, outputTimeWinner);  
+    setTimeout(function() { createElementWinner() }, outputTimeWinner); 
+    removeRoundResult(); 
   }
 }
 
 function updateScoreElementValue() {
-  playerScoreElement.innerText = `Your Score: ${playerScore}`;
-  computerScoreElement.innerText = `My Score: ${computerScore}`;
+  playerScoreElement.innerText = `${playerScore}`;
+  computerScoreElement.innerText = `${computerScore}`;
+}
+
+/* updates the round number on the screen */
+function updateRound() {
+  document.getElementById("roundCounter").appendChild(roundNumber);
+  roundNumber.innerText = `ROUND: ${countRounds}`;
 }
 
 function removeScoreElement() {
@@ -138,15 +164,20 @@ function displayRoundResult(computerSelectionRightCase,
                             playerSelectionRightCase, roundResult) {
   let result = document.createElement("p");
   result.setAttribute("id","result");
+  const audioRoundResult = document.getElementById(`audioRoundResult${roundResult}`) 
   switch (roundResult) {
     case "draw":
       result.innerText = `It is a draw`;
+      audioRoundResult.play();
       break;
     case "playerWins":
       result.innerText = `You win! ${playerSelectionRightCase} beats ${computerSelectionRightCase}`;  
+      audioRoundResult.play();
+      break;
       break;
     case "computerWins":
       result.innerText = `You lose! ${computerSelectionRightCase} beats ${playerSelectionRightCase}`;
+      audioRoundResult.play();
       break;
   }
   document.getElementById("roundResult").appendChild(result);
@@ -164,17 +195,18 @@ function removeRoundResult() {
 */
 function createElementWinner(){
   if (playerScore > computerScore ){
-    calcWinner.innerText =`You win! ${playerScore} ${computerScore}`;
+    calcWinner.innerText =`You win! ${playerScore} : ${computerScore}`;
   } else if (computerScore > playerScore){
-    calcWinner.innerText = `You lose! ${playerScore} ${computerScore}`;
+    calcWinner.innerText = `You lose! ${playerScore} : ${computerScore}`;
   } else if (playerScore === computerScore){
-    calcWinner.innerText = `It is a draw! ${playerScore} ${computerScore}`;
+    calcWinner.innerText = `It is a draw! ${playerScore} : ${computerScore}`;
   }
   document.getElementById("winner").appendChild(calcWinner) 
 }
 
 function playRound() { 
   console.log(`Rounds:${countRounds}`);
+ 
   // set case
   playerSelection = lowerCase(playerSelection) 
   let playerSelectionRightCase = rightCase(playerSelection); 
@@ -188,7 +220,8 @@ function playRound() {
   setTimeout(function() {
     createElement(computerSelectionRightCase,"computer");
   }, outputComputerSelectionTime);
-       
+  
+  updateRound(countRounds);
   console.log(playerSelection);
   console.log(computerSelection);
         

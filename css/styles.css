@@ -3,14 +3,172 @@
 body {
   background-color: black;
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /*font-family: 'Trispace', sans-serif; */
+  font-family: 'Londrina Outline', cursive;
+  background-image: url(../img/milkyway_background_high_res.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ }
+
+h1,
+h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 55px;
+  font-weight: bolder;
+  margin: 1px 1px 2px 10px; 
 }
 
-h1 {
-  color: white;
+#image{
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  margin: 10px;
 }
-
 .hal-image {
+  height: 350px;
   width: auto;
-  height: 250px;
 }
+
+#selection {
+  font-weight: 16px;
+}
+
+#playerScores {
+  font-weight: 55px;
+  align-items: center;
+}
+
+.playerScore,
+.computerScore {
+  font-size: 45px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#computerSelection{
+  font-weight: 55px;
+  display: flex;
+  justify-content: center;
+}
+
+#playerSelection{
+  font-weight: 55px;
+  display: flex;
+  justify-content: center;
+}
+
+#selection_options{
+  display: flex;
+  justify-content: center;
+}
+
+#playerSelect{
+  width: 80px;
+  height: 88px;
+  margin: 5px 10px 5px;
+  display: flex;
+  float:left;
+  margin-right:2px;
+  background-color: rgba(255, 0, 0, 0.582);
+  line-height: 40px;
+  padding: 0px;
+  font-weight: bold;  
+  border: solid 5px #000;
+  border-width: 0 4px 5px 0;
+  border-radius: 5px;
+  border-color: transparent rgba(221, 221, 221, 0.936) rgb(104, 103, 103) transparent;
+  background-clip: padding-box;  
+}
+
+.fa-regular{
+  width: 80px;
+  height: 88px;
+  display: flex;
+  margin-top: 5px;
+  padding: 2px 0px 2px 0px;
+  
+}
+
+
+
+.rock, 
+.paper,
+.scissors {
+  align-self: center;
+  padding: inherit;  
+}
+
+.playerScoreResult{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.playerScore,
+.computerScore {
+  font-size: 48px;
+  font-weight: bolder;
+}
+
+#playerScoreNumber,
+#computerScoreNumber {
+  color: goldenrod;
+}
+
+.roundResults {
+  font-size: 48px;
+  display: flex;
+  margin-top: 1px;
+  align-content: flex-end;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+#result{
+  font-weight: 48px;
+  display: flex;
+  margin: 5px 0px 5px 0px;
+ 
+}
+
+#roundSelection{
+  font-size: 35px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.winner{
+  font-size: 48px;
+    display: flex;
+    margin: 5px 0px 5px 0px;
+    justify-content: center;
+    height: 67px;
+}
+
+#calcWinner{
+  border: 5px;
+  margin: 5px;
+}
+
+.roundCounter{
+  display: flex;
+  justify-content: center;
+}
+#roundNumber{
+  font-size: 34px;
+  margin: 0px 0px 0px 0px;
+  padding-left: 36px;
+    color: goldenrod;
+    font-weight: bold;
+}
+
+
+
