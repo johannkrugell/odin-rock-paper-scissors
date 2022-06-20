@@ -31,7 +31,6 @@ const outputComputerSelectionTime = 4000;
 const outputRoundResultTime = 12000;
 const outputScoreTime = 14000;
 
-
 /* When a player selects an options
    the number of rounds are incremented by 1
    previous elements in the DOM are removed
@@ -40,7 +39,6 @@ const outputScoreTime = 14000;
    both computerSelection and playerSelection values are passed to playRound
 */
 function playerClick(e) {
-  
   countRounds += 1; 
   if (countRounds <= 5) {  
     removeElement(); 
@@ -97,14 +95,12 @@ function createElement(selection, selectionType) {
     audioPlayerSelection.play();
     setTimeout(() => {outputPlayerSelection.appendChild(updateSelection)},
                       outputPlayerSelectionTime);
-    
   }
   else {
     updateSelection.innerText = `${selection}`;
     audioComputerBuildUp.play();
-        
-    setTimeout(()=> {audioComputerSelection.play()  }, outputComputerSelectionTime);
-   
+    setTimeout(()=> {audioComputerSelection.play()  }, 
+                     outputComputerSelectionTime);
     setTimeout(() => {outputComputerSelection.appendChild(updateSelection)},
                       outputComputerSelectionTime);
   }
@@ -122,7 +118,7 @@ function removeElement() {
 
 /* If it is the first round add the score element to the DOM tree
    subsequent rounds update the score element value. If the last
-   round has been played calculate who the winner is
+   round has been played calculate who the winner is and remove score elements
 */
 function updateScoreElement() {
   if (countRounds == 1){
@@ -145,15 +141,15 @@ function updateScoreElementValue() {
   computerScoreElement.innerText = `${computerScore}`;
 }
 
+function removeScoreElement() {
+  document.getElementById("playerScore").remove();
+  document.getElementById("computerScore").remove();
+}
+
 /* updates the round number on the screen */
 function updateRound() {
   document.getElementById("roundCounter").appendChild(roundNumber);
   roundNumber.innerText = `ROUND: ${countRounds}`;
-}
-
-function removeScoreElement() {
-  document.getElementById("playerScore").remove();
-  document.getElementById("computerScore").remove();
 }
 
 /* Function is called from the playRound to display the message if the player 
@@ -204,9 +200,10 @@ function createElementWinner(){
   document.getElementById("winner").appendChild(calcWinner) 
 }
 
+/* the playRound function is called when the player clicks the button 
+   with the rock-paper-scissors selection
+*/
 function playRound() { 
-  console.log(`Rounds:${countRounds}`);
- 
   // set case
   playerSelection = lowerCase(playerSelection) 
   let playerSelectionRightCase = rightCase(playerSelection); 
@@ -222,9 +219,7 @@ function playRound() {
   }, outputComputerSelectionTime);
   
   updateRound(countRounds);
-  console.log(playerSelection);
-  console.log(computerSelection);
-        
+       
   /* compare user vs. computer selection and determine winner */
     
   if (playerSelection === computerSelection) {
@@ -245,7 +240,6 @@ function playRound() {
                                         playerSelectionRightCase, roundResult);
     }, outputRoundResultTime)      
     setTimeout(() => { updateScoreElement() }, outputScoreTime)
-    console.log(`Player Score update: ${playerScore}`);
   }     
 
   else if (computerSelection === "rock" && playerSelection === "scissors" || 
@@ -257,6 +251,5 @@ function playRound() {
                                         playerSelectionRightCase, roundResult);
     }, outputRoundResultTime);
     setTimeout(() => { updateScoreElement() }, outputScoreTime);    
-        console.log(`Computer Score update: ${computerScore}`);
   }     
 }
